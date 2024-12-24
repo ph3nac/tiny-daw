@@ -4,16 +4,7 @@
 
 namespace Utils
 {
-inline tracktion::Project::Ptr createTempProject (tracktion::Engine& engine)
-{
-    auto file = engine.getTemporaryFileManager().getTempDirectory().getChildFile (
-        "tempProject");
-    tracktion::ProjectManager::TempProject tempProject (engine.getProjectManager(),
-                                                        file,
-                                                        true);
-    return tempProject.project;
-}
-
+// オーディオファイルを選択するダイアログを表示する
 inline void browseForAudioFile (
     tracktion::Engine& engine,
     std::function<void (const juce::File&)> fileChosenCallback)
@@ -36,6 +27,8 @@ inline void browseForAudioFile (
             callback (file);
         });
 }
+
+// オーディオトラックを作成する
 inline tracktion::AudioTrack* getOrInsertAudioTrackAt (tracktion::Edit& edit,
                                                        int index)
 {
@@ -52,6 +45,7 @@ inline void removeAllClips (tracktion::AudioTrack* track)
     }
 }
 
+// オーディオファイルを読み込んでWaveAudioClipとして追加する
 inline tracktion::WaveAudioClip::Ptr loadAudioFileAsClip (
     tracktion::Edit& edit,
     const juce::File& file)
@@ -74,6 +68,7 @@ inline tracktion::WaveAudioClip::Ptr loadAudioFileAsClip (
     return {};
 }
 
+// editのtransportControlを使ってクリップをループ再生する
 template <typename ClipType>
 typename ClipType::Ptr loopAroundClip (ClipType& clip)
 {

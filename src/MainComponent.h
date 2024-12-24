@@ -1,10 +1,10 @@
 #pragma once
 
+#include "juce_gui_basics/juce_gui_basics.h"
 #include <tracktion_engine/tracktion_engine.h>
 
-#include "Thumbnail.h"
+#include "AudioTrackComponent.h"
 #include "Utils.h"
-#include "juce_gui_basics/juce_gui_basics.h"
 
 namespace te = tracktion;
 class MainComponent : public juce::Component, private juce::ChangeListener
@@ -21,7 +21,7 @@ private:
 
     juce::TextButton playPauseButton { "Play" };
     juce::TextButton loadFileButton { "Load File" };
-    Thumbnail thumbnail { transport };
+    AudioTrackComponent audioTrackViewComponent { transport };
 
     te::engine::AudioTrack* audioTrack = nullptr;
     void togglePlay()
@@ -46,13 +46,13 @@ public:
 
         addAndMakeVisible (playPauseButton);
         addAndMakeVisible (loadFileButton);
-        addAndMakeVisible (thumbnail);
+        addAndMakeVisible (audioTrackViewComponent);
 
         playPauseButton.onClick = [this]
         { togglePlay(); };
         loadFileButton.onClick = [this]
         { Utils::browseForAudioFile (engine, [this] (const juce::File& f)
-                                     { setFile (f); }); };
+                                     { audioTrackViewComponent.setFile (f); }); };
     }
     ~MainComponent() override
     {
@@ -75,7 +75,7 @@ public:
         playPauseButton.setBounds (topR.removeFromLeft (topR.getWidth() / 2).reduced (2));
         loadFileButton.setBounds (topR.reduced (2));
 
-        thumbnail.setBounds (r.reduced (2));
+        audioTrackViewComponent.setBounds (r.reduced (2));
     }
 
 private:
@@ -100,17 +100,7 @@ private:
         }
         return {};
     }
-    void setFile (const juce::File& f)
-    {
-        if (auto clip = Utils::loadAudioFileAsClip (edit, f))
-        {
-            thumbnail.setFile (Utils::loopAroundClip (*clip)->getPlaybackFile());
-        }
-        else
-        {
-            thumbnail.setFile ({ engine }); // clear the thumbnail エラーにならないが気持ち悪いな
-        }
-    }
+
     void updatePlayButtonText()
     {
         playPauseButton.setButtonText (transport.isPlaying() ? "Pause" : "Play");
