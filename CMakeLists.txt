@@ -22,6 +22,8 @@ target_sources(TinyDaw
     PRIVATE
         src/Main.cpp
         src/MainComponent.h
+        src/Utils.h
+        src/Thumbnail.h
         )
 
 target_compile_definitions(TinyDaw
