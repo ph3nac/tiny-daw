@@ -4,7 +4,8 @@
 
 namespace Utils
 {
-// オーディオファイルを選択するダイアログを表示する
+
+// オーディオファイルを読みこむ
 inline void browseForAudioFile (
     tracktion::Engine& engine,
     std::function<void (const juce::File&)> fileChosenCallback)

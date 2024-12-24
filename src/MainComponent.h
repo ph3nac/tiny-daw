@@ -10,33 +10,6 @@ namespace te = tracktion;
 class MainComponent : public juce::Component, private juce::ChangeListener
 {
 private:
-    te::Engine engine { "TinyDAW" };
-    te::Edit edit { engine, te::Edit::EditRole::forEditing };
-    te::engine::TransportControl& transport { edit.getTransport() };
-
-    juce::FileChooser audioFileChooser { "select an audio file",
-                                         engine.getPropertyStorage().getDefaultLoadSaveDirectory ("TinyDAW"),
-                                         engine.getAudioFileFormatManager().readFormatManager.getWildcardForAllFormats() };
-    std::unique_ptr<juce::TemporaryFile> defaultTempProject;
-
-    juce::TextButton playPauseButton { "Play" };
-    juce::TextButton loadFileButton { "Load File" };
-    AudioTrackComponent audioTrackViewComponent { transport };
-
-    te::engine::AudioTrack* audioTrack = nullptr;
-    void togglePlay()
-    {
-        if (transport.isPlaying())
-        {
-            transport.stop (false, false);
-        }
-        else
-        {
-            transport.playFromStart (true);
-            // transport.play (false);
-        }
-    }
-
 public:
     MainComponent()
     {
@@ -79,6 +52,34 @@ public:
     }
 
 private:
+    te::Engine engine { "TinyDAW" };
+    te::Edit edit { engine, te::Edit::EditRole::forEditing };
+    te::engine::TransportControl& transport { edit.getTransport() };
+
+    juce::FileChooser audioFileChooser { "select an audio file",
+                                         engine.getPropertyStorage().getDefaultLoadSaveDirectory ("TinyDAW"),
+                                         engine.getAudioFileFormatManager().readFormatManager.getWildcardForAllFormats() };
+    std::unique_ptr<juce::TemporaryFile> defaultTempProject;
+
+    juce::TextButton playPauseButton { "Play" };
+    juce::TextButton loadFileButton { "Load File" };
+    AudioTrackComponent audioTrackViewComponent { transport };
+
+    te::engine::AudioTrack* audioTrack = nullptr;
+
+    void togglePlay()
+    {
+        if (transport.isPlaying())
+        {
+            transport.stop (false, false);
+        }
+        else
+        {
+            transport.playFromStart (true);
+            // transport.play (false);
+        }
+    }
+
     te::WaveAudioClip::Ptr getClip()
     {
         if (auto track = Utils::getOrInsertAudioTrackAt (edit, 0))
