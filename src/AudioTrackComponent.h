@@ -24,6 +24,10 @@ public:
     {
         if (auto clip = Utils::loadAudioFileAsClip (transport.edit, file))
         {
+            // テンポ情報付きのwavを読み込むとtimestretch.initialize()のエラーが発生するため，自動的にピッチとテンポを変更するのを無効にする
+            clip->setAutoPitch (false);
+            clip->setAutoTempo (false);
+            clip->setTimeStretchMode (te::TimeStretcher::defaultMode);
             thumbnail.setFile (Utils::loopAroundClip (*clip)->getPlaybackFile());
         }
         else
