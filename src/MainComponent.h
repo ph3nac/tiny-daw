@@ -75,8 +75,8 @@ private:
         }
         else
         {
-            transport.playFromStart (true);
-            // transport.play (false);
+            // transport.playFromStart (true);
+            transport.play (false);
         }
     }
 

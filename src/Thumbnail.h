@@ -60,6 +60,7 @@ struct Thumbnail : public juce::Component
 
     void mouseDown (const juce::MouseEvent& e) override
     {
+        transport.stop (false, false);
         transport.setUserDragging (true);
         mouseDrag (e);
     }

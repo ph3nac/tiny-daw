@@ -77,8 +77,6 @@ typename ClipType::Ptr loopAroundClip (ClipType& clip)
     transport.setLoopRange (clip.getEditTimeRange());
     transport.looping = true;
     transport.setPosition (std::chrono::seconds (0));
-    transport.play (false);
-
     return clip;
 }
 
