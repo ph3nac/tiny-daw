@@ -51,8 +51,12 @@ struct Thumbnail : public juce::Component
         }
         else
         {
+            // isOutOfDate() はファイルが変更されthumbnailが更新されていない場合にtrueを返す
+            // ここではthumbnailが更新されたかどうかで波形の明るさを変えている
             const float brightness = smartThumbnail.isOutOfDate() ? 0.4f : 0.66f;
             g.setColour (colour.withMultipliedBrightness (brightness));
+            // 波形を描画
+            // 0秒から波形の長さまで(全て)を描画
             smartThumbnail.drawChannels (
                 g, r, { std::chrono::seconds (0), te::TimePosition::fromSeconds (smartThumbnail.getTotalLength()) }, 1.0F);
         }

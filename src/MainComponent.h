@@ -9,7 +9,6 @@
 namespace te = tracktion;
 class MainComponent : public juce::Component, private juce::ChangeListener
 {
-private:
 public:
     MainComponent()
     {
@@ -64,8 +63,6 @@ private:
     juce::TextButton playPauseButton { "Play" };
     juce::TextButton loadFileButton { "Load File" };
     AudioTrackComponent audioTrackViewComponent { transport };
-
-    te::engine::AudioTrack* audioTrack = nullptr;
 
     void togglePlay()
     {
