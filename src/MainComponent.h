@@ -3,7 +3,7 @@
 #include "juce_gui_basics/juce_gui_basics.h"
 #include <tracktion_engine/tracktion_engine.h>
 
-#include "AudioTrackComponent.h"
+#include "AudioClipComponent.h"
 #include "Utils.h"
 
 namespace te = tracktion;
@@ -53,7 +53,7 @@ public:
 private:
     te::Engine engine { "TinyDAW" };
     te::Edit edit { engine, te::Edit::EditRole::forEditing };
-    te::engine::TransportControl& transport { edit.getTransport() };
+    te::TransportControl& transport { edit.getTransport() };
 
     juce::FileChooser audioFileChooser { "select an audio file",
                                          engine.getPropertyStorage().getDefaultLoadSaveDirectory ("TinyDAW"),
@@ -62,7 +62,7 @@ private:
 
     juce::TextButton playPauseButton { "Play" };
     juce::TextButton loadFileButton { "Load File" };
-    AudioTrackComponent audioTrackViewComponent { transport };
+    AudioClipComponent audioTrackViewComponent { transport };
 
     void togglePlay()
     {

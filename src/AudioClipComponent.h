@@ -7,10 +7,10 @@
 
 namespace te = tracktion;
 
-class AudioTrackComponent : public juce::Component
+class AudioClipComponent : public juce::Component
 {
 public:
-    AudioTrackComponent (te::engine::TransportControl& tc) : transport (tc), thumbnail (transport)
+    AudioClipComponent (te::engine::TransportControl& tc) : transport (tc), thumbnail (transport)
     {
         addAndMakeVisible (thumbnail);
     }
@@ -42,5 +42,5 @@ private:
     te::engine::TransportControl& transport;
     Thumbnail thumbnail;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioTrackComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioClipComponent)
 };

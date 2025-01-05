@@ -6,22 +6,26 @@ cmake_minimum_required(VERSION 3.22)
 
 project(TinyDaw VERSION 0.0.1)
 
-add_subdirectory(tracktion_engine/modules/juce)
-add_subdirectory(tracktion_engine/modules)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # generate compile_commands.json for clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-juce_add_gui_app(TinyDaw
-    PRODUCT_NAME "TinyDaw")
+set(PROJECT_NAME "TinyDaw")
+set(TARGET_NAME "${PROJECT_NAME}")
 
-target_sources(TinyDaw
+add_subdirectory(tracktion_engine/modules/juce)
+add_subdirectory(tracktion_engine/modules)
+
+juce_add_gui_app("${PROJECT_NAME}"
+    PRODUCT_NAME "${PROJECT_NAME}")
+
+add_subdirectory(src)
+target_include_directories("${PROJECT_NAME}"
     PRIVATE
-        src/Main.cpp
-        )
+        src)
+
 
 target_compile_definitions(TinyDaw
     PRIVATE
