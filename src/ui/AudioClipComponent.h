@@ -19,6 +19,8 @@ private:
     std::unique_ptr<te::SmartThumbnail> thumbnail;
 };
 
+// ===========================================================================
+
 inline AudioClipComponent::AudioClipComponent (EditViewState& evs, te::Clip::Ptr c)
     : ClipComponent (evs, c)
 {
@@ -125,3 +127,4 @@ inline void AudioClipComponent::updateThumbnail()
         }
     }
 }
+// ===========================================================================

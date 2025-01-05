@@ -1,13 +1,11 @@
 #pragma once
 
 #include <tracktion_engine/tracktion_engine.h>
-
+namespace EngineHelpers
+{
 namespace te = tracktion;
 
 using namespace std::chrono_literals;
-
-namespace EngineHelpers
-{
 inline te::Project::Ptr createTempProject (te::Engine& engine)
 {
     auto file = engine.getTemporaryFileManager().getTempDirectory().getChildFile ("temp_project").withFileExtension (te::projectFileSuffix);
